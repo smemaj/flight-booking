@@ -1,6 +1,6 @@
 package lhind.flights.booking.model.enums;
 
-public enum BookingClassEnum {
+public enum FlightClassEnum {
     ECONOMY,
     PREMIUM_ECONOMY,
     BUSINESS,
