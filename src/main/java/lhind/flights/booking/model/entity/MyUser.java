@@ -20,6 +20,8 @@ public class MyUser {
     private String lastName;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+    @Column(name = "password", nullable = false)
+    private String password;
     @Column(name = "phone")
     private String phone;
     @Column(name = "address")
@@ -105,5 +107,13 @@ public class MyUser {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
