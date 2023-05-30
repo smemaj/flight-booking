@@ -1,6 +1,7 @@
 package lhind.flights.booking.model.entity;
 
 import jakarta.persistence.*;
+import lhind.flights.booking.model.enums.AirlineCodeEnum;
 import lhind.flights.booking.model.enums.FlightStatusEnum;
 
 import java.util.Date;
@@ -13,11 +14,12 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "airline_code", nullable = false, unique = true)//check if unique true
-    private String airlineCode;
-    @Column(name = "flight_number", nullable = false, unique = true)//unique for 24 hours
+    @Enumerated(EnumType.STRING)
+    @Column(name = "airline_code", nullable = false)//check if unique true
+    private AirlineCodeEnum airlineCode;
+    @Column(name = "flight_number", nullable = false)//unique for 24 hours
     private String flightNumber;
-    @Column(name = "origin", nullable = false, unique = true)
+    @Column(name = "origin", nullable = false)
     private String origin;
     @Column(name = "destination", nullable = false)
     private String destination;
@@ -29,8 +31,8 @@ public class Flight {
     private Date departureTime;
     @Column(name = "aircraft_type")
     private String aircraftType;
-    @Column(name = "total_seats_available")//??
-    private List totalSeatsAvailable;
+//    @Column(name = "total_seats_available")//??
+//    private List<SeatClass> totalSeatsAvailable;// vetem getters
     @Enumerated(value = EnumType.STRING)
     @Column(name = "flight_status", nullable = false)
     private FlightStatusEnum flightStatus;
@@ -43,11 +45,11 @@ public class Flight {
         this.id = id;
     }
 
-    public String getAirlineCode() {
+    public AirlineCodeEnum getAirlineCode() {
         return airlineCode;
     }
 
-    public void setAirlineCode(String airlineCode) {
+    public void setAirlineCode(AirlineCodeEnum airlineCode) {
         this.airlineCode = airlineCode;
     }
 
@@ -99,13 +101,13 @@ public class Flight {
         this.aircraftType = aircraftType;
     }
 
-    public List getTotalSeatsAvailable() {
-        return totalSeatsAvailable;
-    }
-
-    public void setTotalSeatsAvailable(List totalSeatsAvailable) {
-        this.totalSeatsAvailable = totalSeatsAvailable;
-    }
+//    public List getTotalSeatsAvailable() {
+//        return totalSeatsAvailable;
+//    }
+//
+//    public void setTotalSeatsAvailable(List totalSeatsAvailable) {
+//        this.totalSeatsAvailable = totalSeatsAvailable;
+//    }
 
     public FlightStatusEnum getFlightStatus() {
         return flightStatus;
@@ -114,4 +116,5 @@ public class Flight {
     public void setFlightStatus(FlightStatusEnum flightStatus) {
         this.flightStatus = flightStatus;
     }
+
 }

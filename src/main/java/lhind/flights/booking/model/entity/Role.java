@@ -8,7 +8,7 @@ import lhind.flights.booking.model.enums.RoleEnum;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id")
     private Integer id;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role", nullable = false)

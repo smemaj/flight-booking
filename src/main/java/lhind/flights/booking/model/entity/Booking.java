@@ -3,6 +3,7 @@ package lhind.flights.booking.model.entity;
 import jakarta.persistence.*;
 import lhind.flights.booking.model.enums.BookingStatusEnum;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Booking {
     private MyUser user;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "booking_flight",
+            name = "booking_flight",//gabim
             joinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "flight_id", referencedColumnName = "id")
     )
@@ -56,11 +57,10 @@ public class Booking {
     }
 
     public List<Flight> getFlights() {
+        if (flights == null) {// same thing for hash map and set
+            flights = new ArrayList<>();
+        }
         return flights;
-    }
-
-    public void setFlights(List<Flight> flights) {
-        this.flights = flights;
     }
 
     public BookingStatusEnum getBookingStatus() {
