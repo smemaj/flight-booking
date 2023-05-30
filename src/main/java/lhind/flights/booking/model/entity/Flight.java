@@ -13,7 +13,7 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Enumerated(EnumType.STRING)
     @Column(name = "airline_code", nullable = false)//check if unique true
     private AirlineCodeEnum airlineCode;
@@ -37,11 +37,11 @@ public class Flight {
     @Column(name = "flight_status", nullable = false)
     private FlightStatusEnum flightStatus;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

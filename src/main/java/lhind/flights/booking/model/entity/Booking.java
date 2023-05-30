@@ -14,7 +14,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Column(name = "booking_time", nullable = false)
     @Temporal(value = TemporalType.TIME)
     private Date bookingTime;
@@ -32,11 +32,11 @@ public class Booking {
     @Enumerated(value = EnumType.STRING)
     private BookingStatusEnum bookingStatus;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
