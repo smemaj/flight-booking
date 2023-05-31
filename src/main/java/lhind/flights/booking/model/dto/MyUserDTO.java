@@ -10,6 +10,7 @@ import java.util.List;
 public class MyUserDTO {
 
     private Long id;
+    private String username;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -24,6 +25,7 @@ public class MyUserDTO {
 
     public MyUserDTO(MyUser user) {
         this.setId(user.getId());
+        this.setUsername(user.getUsername());
         this.setFirstName(user.getFirstName());
         this.setMiddleName(user.getMiddleName());
         this.setLastName(user.getLastName());
@@ -104,5 +106,13 @@ public class MyUserDTO {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
