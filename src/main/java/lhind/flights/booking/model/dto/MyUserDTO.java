@@ -14,7 +14,7 @@ public class MyUserDTO {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String email;
+    //private String email;
     private String password;
     private String phone;
     private String address;
@@ -29,7 +29,7 @@ public class MyUserDTO {
         this.setFirstName(user.getFirstName());
         this.setMiddleName(user.getMiddleName());
         this.setLastName(user.getLastName());
-        this.setEmail(user.getEmail());
+       // this.setEmail(user.getEmail());
         this.setPassword(user.getPassword());
         this.setPhone(user.getPhone());
         this.setAddress(user.getAddress());
@@ -68,13 +68,13 @@ public class MyUserDTO {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getPassword() {
         return password;

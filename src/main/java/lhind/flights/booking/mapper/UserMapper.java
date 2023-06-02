@@ -14,7 +14,8 @@ public class UserMapper extends AbstractMapper<MyUser, MyUserDTO>{
         myUser.setFirstName(myUserDTO.getFirstName());
         myUser.setMiddleName(myUserDTO.getMiddleName());
         myUser.setLastName(myUserDTO.getLastName());
-        myUser.setEmail(myUserDTO.getEmail());
+        myUser.setUsername(myUserDTO.getUsername());
+        //myUser.setEmail(myUserDTO.getEmail());
         myUser.setPassword(myUserDTO.getPassword());
         myUser.setPhone(myUserDTO.getPhone());
         myUser.setAddress(myUserDTO.getAddress());
@@ -33,7 +34,8 @@ public class UserMapper extends AbstractMapper<MyUser, MyUserDTO>{
         myUserDTO.setFirstName(myUser.getFirstName());
         myUserDTO.setMiddleName(myUser.getMiddleName());
         myUserDTO.setLastName(myUser.getLastName());
-        myUserDTO.setEmail(myUser.getEmail());
+        myUserDTO.setUsername(myUser.getUsername());
+        //myUserDTO.setEmail(myUser.getEmail());
         myUserDTO.setPassword(myUser.getPassword());
         myUserDTO.setPhone(myUser.getPhone());
         myUserDTO.setAddress(myUser.getAddress());

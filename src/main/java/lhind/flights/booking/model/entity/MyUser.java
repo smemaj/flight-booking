@@ -12,8 +12,8 @@ public class MyUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "username")
-    private String username;
+//    @Column(name = "username")
+//    private String username;
     @Column(name = "first_name", nullable = false)
     private String firstName;
     @Column(name = "middle_name")
@@ -21,8 +21,8 @@ public class MyUser {
     @Column(name = "last_name", nullable = false)
     private String lastName;
     @Column(name = "email", nullable = false, unique = true)
-    private String email;
-    @Column(name = "password", nullable = false)
+    private String username;
+    @Column(name = "password")
     private String password;
     @Column(name = "phone")
     private String phone;
@@ -71,13 +71,13 @@ public class MyUser {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getPhone() {
         return phone;
