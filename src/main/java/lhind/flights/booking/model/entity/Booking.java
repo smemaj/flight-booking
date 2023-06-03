@@ -20,7 +20,7 @@ public class Booking {
     private Date bookingTime;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private MyUser user;
+    private User user;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "booking_flight",//gabim
@@ -48,11 +48,11 @@ public class Booking {
         this.bookingTime = bookingTime;
     }
 
-    public MyUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(MyUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

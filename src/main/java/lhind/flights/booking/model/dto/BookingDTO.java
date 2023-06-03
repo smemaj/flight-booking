@@ -2,7 +2,7 @@ package lhind.flights.booking.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lhind.flights.booking.model.entity.Booking;
-import lhind.flights.booking.model.entity.MyUser;
+import lhind.flights.booking.model.entity.User;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class BookingDTO {
 
     private Long id;
     private Date bookingTime;
-    private MyUser user;
+    private User user;
 
     public BookingDTO() {
     }
@@ -38,11 +38,11 @@ public class BookingDTO {
         this.bookingTime = bookingTime;
     }
 
-    public MyUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(MyUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }
