@@ -3,8 +3,7 @@ package lhind.flights.booking.service.impl;
 
 
 import lhind.flights.booking.repository.UserRepository;
-import lhind.flights.booking.model.entity.MyUser;
-import org.springframework.security.core.userdetails.User;
+import lhind.flights.booking.model.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,8 +25,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 
-    private UserDetails toUserDetails(MyUser user) {
-        return User.builder()
+    private UserDetails toUserDetails(User user) {
+        return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .roles(user.getRoles().stream().map(role -> role.getRole().name()).toArray(String[]::new))
