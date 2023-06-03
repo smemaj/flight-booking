@@ -1,15 +1,23 @@
 package lhind.flights.booking.service;
 
 import lhind.flights.booking.exception.UserNotFoundException;
-import lhind.flights.booking.model.dto.MyUserDTO;
+import lhind.flights.booking.model.dto.UserDTO;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<MyUserDTO> loadAll();
+    List<UserDTO> loadAll();
 
-    MyUserDTO loadById(Long id) throws UserNotFoundException;
+    UserDTO loadById(Long id) throws UserNotFoundException;
 
-    MyUserDTO storeUser(MyUserDTO myUserDTO);
+    UserDTO storeUser(UserDTO userDTO);
+
+    void deleteUserByEmail(String email) throws UserNotFoundException;
+
+    void deleteUserById(Long id) throws UserNotFoundException;
+
+    UserDTO updateUser(Long id, UserDTO userDTO) throws UserNotFoundException;
+
+    UserDTO searchUserByEmail(String email) throws UserNotFoundException;
 }
