@@ -25,10 +25,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<BaseResponse> handleEmployeeNotFoundException(UserNotFoundException e) {
-        LOGGER.warn("Employee was not found");
+    public ResponseEntity<BaseResponse> handleUserNotFoundException(UserNotFoundException e) {
+        LOGGER.warn("User was not found");
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setMessages(List.of("Employee was not found"));
+        baseResponse.setMessages(List.of("User was not found"));
         return ResponseEntity.status(404).body(baseResponse);
     }
 
