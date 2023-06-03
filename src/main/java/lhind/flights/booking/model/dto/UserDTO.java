@@ -1,13 +1,13 @@
 package lhind.flights.booking.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lhind.flights.booking.model.entity.MyUser;
+import lhind.flights.booking.model.entity.User;
 import lhind.flights.booking.model.entity.Role;
 
 import java.util.List;
 
 @JsonSerialize
-public class MyUserDTO {
+public class UserDTO {
 
     private Long id;
     private String username;
@@ -20,10 +20,10 @@ public class MyUserDTO {
     private String address;
     private List<Role> roles;
 
-    public MyUserDTO() {
+    public UserDTO() {
     }
 
-    public MyUserDTO(MyUser user) {
+    public UserDTO(User user) {
         this.setId(user.getId());
         this.setUsername(user.getUsername());
         this.setFirstName(user.getFirstName());
