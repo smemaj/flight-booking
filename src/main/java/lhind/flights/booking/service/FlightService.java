@@ -1,5 +1,7 @@
 package lhind.flights.booking.service;
 
+import lhind.flights.booking.exception.FlightIsBookedException;
+import lhind.flights.booking.exception.FlightNotFoundException;
 import lhind.flights.booking.model.dto.FlightDTO;
 import lhind.flights.booking.model.dto.TravellerInfo;
 
@@ -11,4 +13,8 @@ public interface FlightService {
     FlightDTO newFlight(FlightDTO flightDTO);
 
     List<TravellerInfo> getUsersByFlightId(Long id);
+
+    FlightDTO updateFlight(Long id, FlightDTO flightDTO) throws FlightNotFoundException;
+
+    void deleteFlightById(Long id) throws FlightNotFoundException, FlightIsBookedException;
 }
