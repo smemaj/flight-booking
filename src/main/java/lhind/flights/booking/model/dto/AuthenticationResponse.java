@@ -1,5 +1,5 @@
 package lhind.flights.booking.model.dto;
-public class AuthenticationResponse extends BaseResponse {
+public class AuthenticationResponse {
 
     private String token;
 

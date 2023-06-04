@@ -3,6 +3,7 @@ package lhind.flights.booking.model.dto;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lhind.flights.booking.model.entity.User;
 import lhind.flights.booking.model.entity.Role;
+import lhind.flights.booking.model.enums.RoleEnum;
 
 import java.util.List;
 
@@ -20,10 +21,12 @@ public class UserDTO {
     private String address;
     private List<Role> roles;
 
+
     public UserDTO() {
     }
 
     public UserDTO(User user) {
+
         this.setId(user.getId());
         this.setUsername(user.getUsername());
         this.setFirstName(user.getFirstName());
@@ -107,6 +110,7 @@ public class UserDTO {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
 
     public String getUsername() {
         return username;

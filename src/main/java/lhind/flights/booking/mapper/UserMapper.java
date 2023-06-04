@@ -36,7 +36,7 @@ public class UserMapper extends AbstractMapper<User, UserDTO>{
         userDTO.setLastName(user.getLastName());
         userDTO.setUsername(user.getUsername());
         //userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
+//        userDTO.setPassword(user.getPassword());
         userDTO.setPhone(user.getPhone());
         userDTO.setAddress(user.getAddress());
         userDTO.setRoles(user.getRoles());

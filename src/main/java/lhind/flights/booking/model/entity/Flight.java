@@ -2,10 +2,10 @@ package lhind.flights.booking.model.entity;
 
 import jakarta.persistence.*;
 import lhind.flights.booking.model.enums.AirlineCodeEnum;
+import lhind.flights.booking.model.enums.FlightClassEnum;
 import lhind.flights.booking.model.enums.FlightStatusEnum;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "flight")
@@ -31,8 +31,9 @@ public class Flight {
     private Date departureTime;
     @Column(name = "aircraft_type")
     private String aircraftType;
-//    @Column(name = "total_seats_available")//??
-//    private List<SeatClass> totalSeatsAvailable;// vetem getters
+
+//    @Column(name = "total_seats_available")
+//    private Map<FlightClassEnum, Integer> totalSeatsAvailable = new HashMap<>();
     @Enumerated(value = EnumType.STRING)
     @Column(name = "flight_status", nullable = false)
     private FlightStatusEnum flightStatus;
@@ -101,12 +102,8 @@ public class Flight {
         this.aircraftType = aircraftType;
     }
 
-//    public List getTotalSeatsAvailable() {
+//    public Map<FlightClassEnum, Integer> getTotalSeatsAvailable() {
 //        return totalSeatsAvailable;
-//    }
-//
-//    public void setTotalSeatsAvailable(List totalSeatsAvailable) {
-//        this.totalSeatsAvailable = totalSeatsAvailable;
 //    }
 
     public FlightStatusEnum getFlightStatus() {

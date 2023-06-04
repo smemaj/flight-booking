@@ -25,4 +25,9 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingsResponse> loadAllBookingsForUser(Long id) throws BookingNotFoundException {
         return bookingRepository.findByUserId(id).stream().map(BookingsResponse::new).collect(Collectors.toList());
     }
+
+    @Override
+    public BookingDTO newBooking(BookingDTO bookingDTO) {
+        return null;
+    }
 }
