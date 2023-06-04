@@ -18,7 +18,7 @@ public class FlightMapper extends  AbstractMapper<Flight, FlightDTO>{
         flight.setFlightDate(flightDTO.getFlightDate());
         flight.setDepartureTime(flightDTO.getDepartureTime());
         flight.setAircraftType(flightDTO.getAircraftType());
-//        flight.setFlightStatus(flightDTO.getFlightStatus());
+        flight.setFlightStatus(flightDTO.getFlightStatus());
         return flight;
 
     }
@@ -37,7 +37,7 @@ public class FlightMapper extends  AbstractMapper<Flight, FlightDTO>{
         flightDTO.setFlightDate(flight.getFlightDate());
         flightDTO.setDepartureTime(flight.getDepartureTime());
         flightDTO.setAircraftType(flight.getAircraftType());
-//        flightDTO.setFlightStatus(flight.getFlightStatus());
+        flightDTO.setFlightStatus(flight.getFlightStatus());
         return flightDTO;
     }
 }

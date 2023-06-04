@@ -17,7 +17,7 @@ public class FlightDTO {
     private Date flightDate;
     private Date departureTime;
     private String aircraftType;
-//    private FlightStatusEnum flightStatus;
+    private FlightStatusEnum flightStatus;
 
     public FlightDTO() {
     }
@@ -31,7 +31,7 @@ public class FlightDTO {
         this.setFlightDate(flight.getFlightDate());
         this.setDepartureTime(flight.getDepartureTime());
         this.setAircraftType(flight.getAircraftType());
-//        this.setFlightStatus(flight.getFlightStatus());
+        this.setFlightStatus(flight.getFlightStatus());
     }
 
     public Long getId() {
@@ -98,11 +98,11 @@ public class FlightDTO {
         this.aircraftType = aircraftType;
     }
 
-//    public FlightStatusEnum getFlightStatus() {
-//        return flightStatus;
-//    }
-//
-//    public void setFlightStatus(FlightStatusEnum flightStatus) {
-//        this.flightStatus = flightStatus;
-//    }
+    public FlightStatusEnum getFlightStatus() {
+        return flightStatus;
+    }
+
+    public void setFlightStatus(FlightStatusEnum flightStatus) {
+        this.flightStatus = flightStatus;
+    }
 }
