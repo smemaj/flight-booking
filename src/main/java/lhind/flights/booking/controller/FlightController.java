@@ -6,6 +6,7 @@ import lhind.flights.booking.exception.FlightIsBookedException;
 import lhind.flights.booking.exception.FlightNotFoundException;
 import lhind.flights.booking.exception.UserNotFoundException;
 import lhind.flights.booking.model.dto.FlightDTO;
+import lhind.flights.booking.model.dto.FlightSearch;
 import lhind.flights.booking.model.dto.TravellerInfo;
 import lhind.flights.booking.model.dto.UserDTO;
 import lhind.flights.booking.service.FlightService;
@@ -48,6 +49,13 @@ public class FlightController {
     public ResponseEntity<String> deleteFlightById(@PathVariable(value = "id") Long id) throws FlightNotFoundException, FlightIsBookedException {
         flightService.deleteFlightById(id);
         return ResponseEntity.status(202).body("Flight deleted!");
+    }
+
+    @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
+    @RequestMapping(method = RequestMethod.GET, path = "/search")
+    public ResponseEntity<List<FlightDTO>> getFlights(FlightSearch flightSearch) {
+
+        return ResponseEntity.ok(flightService.loadAllFlightsBySearch(flightSearch));
     }
 
 }
