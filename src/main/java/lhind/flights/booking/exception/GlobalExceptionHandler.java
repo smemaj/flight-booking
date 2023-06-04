@@ -32,6 +32,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(404).body(baseResponse);
     }
 
+    @ExceptionHandler(value = BookingNotFoundException.class)
+    public ResponseEntity<BaseResponse> handleBookingNotFoundException( BookingNotFoundException e) {
+        LOGGER.warn("Booking was not found");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Booking was not found"));
+        return ResponseEntity.status(404).body(baseResponse);
+    }
+
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<BaseResponse> handleRuntimeException(RuntimeException e) {
         LOGGER.error("", e);
