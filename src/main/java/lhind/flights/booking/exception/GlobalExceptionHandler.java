@@ -24,6 +24,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(403).body(baseResponse);
     }
 
+    @ExceptionHandler(value = FlightIsBookedException.class)
+    public ResponseEntity<BaseResponse> handleFlightBookedException(FlightIsBookedException e) {
+        LOGGER.info("Flight cannot be deleted as it is already booked");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Flight cannot be deleted as it is already booked"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<BaseResponse> handleUserNotFoundException(UserNotFoundException e) {
         LOGGER.warn("User was not found");
@@ -37,6 +45,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         LOGGER.warn("Booking was not found");
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setMessages(List.of("Booking was not found"));
+        return ResponseEntity.status(404).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = FlightNotFoundException.class)
+    public ResponseEntity<BaseResponse> handleFlightNotFoundException(FlightNotFoundException e) {
+        LOGGER.warn("Flight was not found");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Flight was not found"));
         return ResponseEntity.status(404).body(baseResponse);
     }
 
