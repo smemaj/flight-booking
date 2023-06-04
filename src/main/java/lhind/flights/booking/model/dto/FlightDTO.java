@@ -5,6 +5,7 @@ import lhind.flights.booking.model.entity.Flight;
 import lhind.flights.booking.model.enums.AirlineCodeEnum;
 import lhind.flights.booking.model.enums.FlightStatusEnum;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 @JsonSerialize
@@ -15,7 +16,7 @@ public class FlightDTO {
     private String origin;
     private String destination;
     private Date flightDate;
-    private Date departureTime;
+    private LocalTime departureTime;
     private String aircraftType;
     private FlightStatusEnum flightStatus;
 
@@ -82,11 +83,11 @@ public class FlightDTO {
         this.flightDate = flightDate;
     }
 
-    public Date getDepartureTime() {
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 
