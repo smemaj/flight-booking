@@ -2,9 +2,9 @@ package lhind.flights.booking.model.entity;
 
 import jakarta.persistence.*;
 import lhind.flights.booking.model.enums.AirlineCodeEnum;
-import lhind.flights.booking.model.enums.FlightClassEnum;
 import lhind.flights.booking.model.enums.FlightStatusEnum;
 
+import java.time.LocalTime;
 import java.util.*;
 
 @Entity
@@ -28,7 +28,7 @@ public class Flight {
     private Date flightDate;
     @Column(name = "departure_time", nullable = false)
     @Temporal(value = TemporalType.TIME)
-    private Date departureTime;
+    private LocalTime departureTime;
     @Column(name = "aircraft_type")
     private String aircraftType;
 
@@ -86,11 +86,11 @@ public class Flight {
         this.flightDate = flightDate;
     }
 
-    public Date getDepartureTime() {
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 
