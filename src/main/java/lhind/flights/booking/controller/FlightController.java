@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lhind.flights.booking.exception.FlightIsBookedException;
 import lhind.flights.booking.exception.FlightNotFoundException;
 import lhind.flights.booking.exception.UserNotFoundException;
-import lhind.flights.booking.model.dto.FlightDTO;
-import lhind.flights.booking.model.dto.FlightSearch;
-import lhind.flights.booking.model.dto.TravellerInfo;
-import lhind.flights.booking.model.dto.UserDTO;
+import lhind.flights.booking.model.dto.*;
 import lhind.flights.booking.service.FlightService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,7 +51,6 @@ public class FlightController {
     @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
     @RequestMapping(method = RequestMethod.GET, path = "/search")
     public ResponseEntity<List<FlightDTO>> getFlights(FlightSearch flightSearch) {
-
         return ResponseEntity.ok(flightService.loadAllFlightsBySearch(flightSearch));
     }
 
