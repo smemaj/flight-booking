@@ -4,6 +4,7 @@ import lhind.flights.booking.exception.FlightIsBookedException;
 import lhind.flights.booking.exception.FlightNotFoundException;
 import lhind.flights.booking.model.dto.FlightDTO;
 import lhind.flights.booking.model.dto.FlightSearch;
+import lhind.flights.booking.model.dto.TestFlightSearch;
 import lhind.flights.booking.model.dto.TravellerInfo;
 
 import java.util.List;

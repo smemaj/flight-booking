@@ -6,6 +6,7 @@ import lhind.flights.booking.mapper.FlightMapper;
 import lhind.flights.booking.mapper.UserMapper;
 import lhind.flights.booking.model.dto.FlightDTO;
 import lhind.flights.booking.model.dto.FlightSearch;
+import lhind.flights.booking.model.dto.TestFlightSearch;
 import lhind.flights.booking.model.dto.TravellerInfo;
 import lhind.flights.booking.model.entity.Flight;
 import lhind.flights.booking.model.entity.User;
@@ -36,18 +37,18 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<FlightDTO> loadAllFlightsBySearch(FlightSearch flightSearch) {
-
         if(flightSearch.getAirlineCode()==null){
-            return flightRepository.findFlightsBySearchpWithoutAC(flightSearch.getOrigin(),
-                    flightSearch.getDestination(),
-                    flightSearch.getFlightDate()).stream().map(flightMapper::toDto).collect(Collectors.toList());
+            return flightRepository.findFlightsBySearchWithoutAC(flightSearch.getOrigin(),
+                    flightSearch.getDestination(), flightSearch.getFlightDate()).stream().map(flightMapper::toDto).collect(Collectors.toList());
         }else {
             return flightRepository.findFlightsBySearch(flightSearch.getOrigin(),
                     flightSearch.getDestination(),
                     flightSearch.getFlightDate(),
                     flightSearch.getAirlineCode()).stream().map(flightMapper::toDto).collect(Collectors.toList());
         }
+//        return flightRepository.findFlightsBySearchWithoutAC(origin).stream().map(flightMapper::toDto).collect(Collectors.toList());
     }
+
 
     @Override
     public FlightDTO newFlight(FlightDTO flightDTO) {
@@ -60,16 +61,7 @@ public class FlightServiceImpl implements FlightService {
         flight.setFlightDate(flightDTO.getFlightDate());
         flight.setDepartureTime(flightDTO.getDepartureTime());
         flight.setAircraftType(flightDTO.getAircraftType());
-//        flight.setFlightStatus(flightDTO.getFlightStatus());
-
-//        flight.setFlightStatus(flightDTO.getFlightStatus());
-//        flight.setFlightDate(flightDTO.getFlightDate());
-//        flight.setFlightNumber(flightDTO.getFlightNumber());
-//        flight.setOrigin(flightDTO.getOrigin());
-//        flight.setDestination(flightDTO.getDestination());
-//        flight.setAircraftType(flight.getAircraftType());
-//        flight.setAirlineCode(flightDTO.getAirlineCode());
-//        flight.setDepartureTime(flightDTO.getDepartureTime());
+        flight.setFlightStatus(flightDTO.getFlightStatus());
 
         return new FlightDTO(flightRepository.save(flight));
     }
@@ -92,11 +84,10 @@ public class FlightServiceImpl implements FlightService {
             flight.setFlightDate(flightDTO.getFlightDate());
             flight.setDepartureTime(flightDTO.getDepartureTime());
             flight.setAircraftType(flightDTO.getAircraftType());
-//            flight.setFlightStatus(flightDTO.getFlightStatus());
+            flight.setFlightStatus(flightDTO.getFlightStatus());
         }else {
             flight.setDepartureTime(flightDTO.getDepartureTime());
         }
-
         return new FlightDTO(flightRepository.save(flight));
     }
 
