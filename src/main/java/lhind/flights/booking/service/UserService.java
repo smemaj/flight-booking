@@ -7,6 +7,7 @@ import lhind.flights.booking.model.dto.BookingsResponse;
 import lhind.flights.booking.model.dto.UserDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -25,4 +26,5 @@ public interface UserService {
     UserDTO searchUserByEmail(String email) throws UserNotFoundException;
 
     List<BookingsResponse> loadAllBookingsForLoggedUser() throws BookingNotFoundException, UserNotFoundException;
+    Map<String, Object> loadAllBookingsForLoggedUserPageable(int page, int size, String sortBy)throws BookingNotFoundException, UserNotFoundException;
 }

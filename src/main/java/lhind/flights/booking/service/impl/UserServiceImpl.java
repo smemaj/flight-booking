@@ -12,6 +12,10 @@ import lhind.flights.booking.model.enums.RoleEnum;
 import lhind.flights.booking.repository.BookingRepository;
 import lhind.flights.booking.repository.UserRepository;
 import lhind.flights.booking.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +23,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -129,5 +135,27 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(UserNotFoundException::new);
         return bookingRepository.findByUserId(user.getId()).stream().map(BookingsResponse::new).collect(Collectors.toList());
+    }
+
+    public Map<String, Object> loadAllBookingsForLoggedUserPageable(int page, int size, String sortBy) throws BookingNotFoundException, UserNotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println("User name: " + userDetails.getUsername());
+        System.out.println("User has authorities: " + userDetails.getAuthorities());
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(UserNotFoundException::new);
+
+        List<BookingsResponse> bookings = new ArrayList<BookingsResponse>();
+        Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
+
+        Page<BookingsResponse> pageBookings = bookingRepository.findBookingsCustom(user.getId(),paging).map(BookingsResponse::new);
+        bookings = pageBookings.getContent();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("bookings", bookings);
+        response.put("currentPage", pageBookings.getNumber());
+        response.put("totalItems", pageBookings.getTotalElements());
+        response.put("totalPages", pageBookings.getTotalPages());
+
+        return response;
     }
 }

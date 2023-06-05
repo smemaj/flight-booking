@@ -16,7 +16,7 @@ public class Booking {
     @Column(name = "id")
     private Long id;
     @Column(name = "booking_time", nullable = false)
-    @Temporal(value = TemporalType.TIME)
+    @Temporal(value = TemporalType.DATE)
     private Date bookingTime;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -6,17 +6,24 @@ import lhind.flights.booking.exception.ExistingEmailException;
 import lhind.flights.booking.exception.UserNotFoundException;
 import lhind.flights.booking.model.dto.BookingsResponse;
 import lhind.flights.booking.model.dto.UserDTO;
+import lhind.flights.booking.model.entity.Booking;
+import lhind.flights.booking.repository.BookingRepository;
 import lhind.flights.booking.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Validated
 @RestController
@@ -26,8 +33,11 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final BookingRepository bookingRepository;
+
+    public UserController(UserService userService, BookingRepository bookingRepository) {
         this.userService = userService;
+        this.bookingRepository = bookingRepository;
     }
 
     @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
@@ -77,6 +87,16 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, path = "/booking")
     public ResponseEntity<List<BookingsResponse>> getBookingsForLoggedUser() throws BookingNotFoundException, UserNotFoundException {
         return ResponseEntity.ok(userService.loadAllBookingsForLoggedUser());
+    }
+
+    @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
+    @RequestMapping(method = RequestMethod.GET, path = "/bookinglogged")
+    public ResponseEntity<Map<String, Object>> findByUId(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) throws UserNotFoundException, BookingNotFoundException {
+//        Sort sortOrder = Sort.by("booking_time");
+        return ResponseEntity.ok(userService.loadAllBookingsForLoggedUserPageable(page,size,"booking_time"));
     }
 
 }
