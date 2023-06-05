@@ -17,14 +17,13 @@ import java.util.List;
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
     @Query(value = "SELECT * FROM flight where " +
-            "origin = :origin AND destination = :destination AND " +
-            "flight_date = :flightDate AND" +
+            "origin = :origin AND destination = :destination AND" +
             " airline_code = :airlineCode", nativeQuery = true)
-    List<Flight> findFlightsBySearch(String origin, String destination, Date flightDate, AirlineCodeEnum airlineCode);
+    List<Flight> findFlightsBySearch(String origin, String destination, String airlineCode);
 
     @Query(value = "SELECT * FROM flight where " +
-            "origin = :origin AND destination = :destination and flight_date = :flightDate", nativeQuery = true)
-    List<Flight> findFlightsBySearchWithoutAC(String origin, String destination, Date flightDate);
+            "origin = :origin AND destination = :destination", nativeQuery = true)
+    List<Flight> findFlightsBySearchWithoutAC(String origin, String destination);
 
     List<Flight> findFlightByOrigin(String origin);
 }
