@@ -50,7 +50,7 @@ public class FlightController {
 
     @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
     @RequestMapping(method = RequestMethod.GET, path = "/search")
-    public ResponseEntity<List<FlightDTO>> getFlights(FlightSearch flightSearch) {
+    public ResponseEntity<List<FlightDTO>> getFlights(@RequestBody FlightSearch flightSearch) {
         return ResponseEntity.ok(flightService.loadAllFlightsBySearch(flightSearch));
     }
 

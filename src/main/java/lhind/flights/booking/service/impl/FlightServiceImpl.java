@@ -14,6 +14,9 @@ import lhind.flights.booking.repository.UserRepository;
 import lhind.flights.booking.service.FlightService;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,12 +40,14 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<FlightDTO> loadAllFlightsBySearch(FlightSearch flightSearch) {
         if(flightSearch.getAirlineCode()==null){
-            return flightRepository.findFlightsBySearchWithoutAC(flightSearch.getOrigin(), flightSearch.getDestination(), flightSearch.getFlightDate()).stream().map(flightMapper::toDto).collect(Collectors.toList());
+//            DateFormat formatter1 = new SimpleDateFormat("dd.MM.yyyy");
+//            formatter1.parse(flightSearch.getFlightDate().toString());
+            return flightRepository.findFlightsBySearchWithoutAC(flightSearch.getOrigin(), flightSearch.getDestination()).stream().map(flightMapper::toDto).collect(Collectors.toList());
         }else {
+
             return flightRepository.findFlightsBySearch(flightSearch.getOrigin(),
                     flightSearch.getDestination(),
-                    flightSearch.getFlightDate(),
-                    flightSearch.getAirlineCode()).stream().map(flightMapper::toDto).collect(Collectors.toList());
+                    flightSearch.getAirlineCode().toString()).stream().map(flightMapper::toDto).collect(Collectors.toList());
         }
 //        return flightRepository.findFlightByOrigin(flightSearch.getOrigin()).stream().map(flightMapper::toDto).collect(Collectors.toList());
     }
