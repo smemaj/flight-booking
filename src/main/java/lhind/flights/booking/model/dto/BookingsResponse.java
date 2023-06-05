@@ -2,9 +2,11 @@ package lhind.flights.booking.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lhind.flights.booking.model.entity.Booking;
+import lhind.flights.booking.model.entity.Flight;
 import lhind.flights.booking.model.enums.BookingStatusEnum;
 
 import java.util.Date;
+import java.util.List;
 
 @JsonSerialize
 public class BookingsResponse {
@@ -12,10 +14,13 @@ public class BookingsResponse {
     private Date bookingTime;
     private BookingStatusEnum bookingStatus;
 
+    private List<Flight> flightList;;
+
     public BookingsResponse(Booking booking) {
         this.setId(booking.getId());
         this.setBookingTime(booking.getBookingTime());
         this.setBookingStatus(booking.getBookingStatus());
+        this.setFlightList(booking.getFlights());
     }
 
     public Long getId() {
@@ -40,5 +45,13 @@ public class BookingsResponse {
 
     public void setBookingStatus(BookingStatusEnum bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public List<Flight> getFlightList() {
+        return flightList;
+    }
+
+    public void setFlightList(List<Flight> flightList) {
+        this.flightList = flightList;
     }
 }
