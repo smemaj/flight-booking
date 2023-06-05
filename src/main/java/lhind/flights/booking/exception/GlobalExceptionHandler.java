@@ -32,6 +32,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(403).body(baseResponse);
     }
 
+    @ExceptionHandler(value = ExistingEmailException.class)
+    public ResponseEntity<BaseResponse> handleEmailException(ExistingEmailException e) {
+        LOGGER.info("User with this email already exists");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("User with this email already exists"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
+
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<BaseResponse> handleUserNotFoundException(UserNotFoundException e) {
         LOGGER.warn("User was not found");

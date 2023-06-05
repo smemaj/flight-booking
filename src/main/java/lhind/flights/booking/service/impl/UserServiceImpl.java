@@ -1,13 +1,20 @@
 package lhind.flights.booking.service.impl;
 
+import lhind.flights.booking.exception.BookingNotFoundException;
+import lhind.flights.booking.exception.ExistingEmailException;
 import lhind.flights.booking.exception.UserNotFoundException;
 import lhind.flights.booking.mapper.UserMapper;
+import lhind.flights.booking.model.dto.BookingsResponse;
 import lhind.flights.booking.model.dto.UserDTO;
 import lhind.flights.booking.model.entity.User;
 import lhind.flights.booking.model.entity.Role;
 import lhind.flights.booking.model.enums.RoleEnum;
+import lhind.flights.booking.repository.BookingRepository;
 import lhind.flights.booking.repository.UserRepository;
 import lhind.flights.booking.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +32,12 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
+    private final BookingRepository bookingRepository;
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder encoder, BookingRepository bookingRepository) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.bookingRepository = bookingRepository;
         this.userMapper = new UserMapper();
     }
 
@@ -42,8 +52,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO storeUser(UserDTO userDTO) {
-        User user = new User();
+    public UserDTO storeUser(UserDTO userDTO) throws ExistingEmailException {
+        if(userRepository.findByUsername(userDTO.getUsername()).isPresent()){
+            throw new ExistingEmailException();
+        }
+        User user = userMapper.toEntity(userDTO);
+        user.setPassword(encoder.encode(userDTO.getPassword()));
 
         Role traveller = new Role();
         traveller.setId(2);
@@ -58,14 +72,14 @@ public class UserServiceImpl implements UserService {
 //        }else {
 //
 //        }
-        user.setFirstName(userDTO.getFirstName());
-        user.setMiddleName(userDTO.getMiddleName());
-        user.setLastName(userDTO.getLastName());
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(encoder.encode(userDTO.getPassword()));
-        user.setPhone(userDTO.getPhone());
-        user.setAddress(userDTO.getAddress());
-        user.setRoles(roles);
+//        user.setFirstName(userDTO.getFirstName());
+//        user.setMiddleName(userDTO.getMiddleName());
+//        user.setLastName(userDTO.getLastName());
+//        user.setUsername(userDTO.getUsername());
+//        user.setPassword(encoder.encode(userDTO.getPassword()));
+//        user.setPhone(userDTO.getPhone());
+//        user.setAddress(userDTO.getAddress());
+//        user.setRoles(roles);
         //user.setEmail(userDTO.getEmail());
 
         return new UserDTO(userRepository.save(user));
@@ -100,5 +114,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO searchUserByEmail(String email) throws UserNotFoundException {
        return userRepository.findByUsername(email).map(userMapper::toDto).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public List<BookingsResponse> loadAllBookingsForLoggedUser() throws BookingNotFoundException, UserNotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+// getUsername() - Returns the username used to authenticate the user.
+        System.out.println("User name: " + userDetails.getUsername());
+
+// getAuthorities() - Returns the authorities granted to the user.
+        System.out.println("User has authorities: " + userDetails.getAuthorities());
+
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(UserNotFoundException::new);
+        return bookingRepository.findByUserId(user.getId()).stream().map(BookingsResponse::new).collect(Collectors.toList());
     }
 }

@@ -1,11 +1,15 @@
 package lhind.flights.booking.controller;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lhind.flights.booking.exception.BookingNotFoundException;
+import lhind.flights.booking.exception.ExistingEmailException;
 import lhind.flights.booking.exception.UserNotFoundException;
+import lhind.flights.booking.model.dto.BookingsResponse;
 import lhind.flights.booking.model.dto.UserDTO;
 import lhind.flights.booking.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping(path = "/user")
 @Schema
@@ -39,7 +44,7 @@ public class UserController {
 
     @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> storeUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> storeUser(@RequestBody UserDTO userDTO) throws ExistingEmailException {
         return ResponseEntity.status(201).body(userService.storeUser(userDTO));
     }
 
@@ -68,4 +73,10 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable(value = "email") String email) throws UserNotFoundException {
         return ResponseEntity.ok(userService.searchUserByEmail(email));
     }
+    @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
+    @RequestMapping(method = RequestMethod.GET, path = "/booking")
+    public ResponseEntity<List<BookingsResponse>> getBookingsForLoggedUser() throws BookingNotFoundException, UserNotFoundException {
+        return ResponseEntity.ok(userService.loadAllBookingsForLoggedUser());
+    }
+
 }

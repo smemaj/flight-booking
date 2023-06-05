@@ -6,7 +6,6 @@ import lhind.flights.booking.mapper.FlightMapper;
 import lhind.flights.booking.mapper.UserMapper;
 import lhind.flights.booking.model.dto.FlightDTO;
 import lhind.flights.booking.model.dto.FlightSearch;
-import lhind.flights.booking.model.dto.TestFlightSearch;
 import lhind.flights.booking.model.dto.TravellerInfo;
 import lhind.flights.booking.model.entity.Flight;
 import lhind.flights.booking.model.entity.User;
@@ -38,15 +37,14 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<FlightDTO> loadAllFlightsBySearch(FlightSearch flightSearch) {
         if(flightSearch.getAirlineCode()==null){
-            return flightRepository.findFlightsBySearchWithoutAC(flightSearch.getOrigin(),
-                    flightSearch.getDestination(), flightSearch.getFlightDate()).stream().map(flightMapper::toDto).collect(Collectors.toList());
+            return flightRepository.findFlightsBySearchWithoutAC(flightSearch.getOrigin(), flightSearch.getDestination(), flightSearch.getFlightDate()).stream().map(flightMapper::toDto).collect(Collectors.toList());
         }else {
             return flightRepository.findFlightsBySearch(flightSearch.getOrigin(),
                     flightSearch.getDestination(),
                     flightSearch.getFlightDate(),
                     flightSearch.getAirlineCode()).stream().map(flightMapper::toDto).collect(Collectors.toList());
         }
-//        return flightRepository.findFlightsBySearchWithoutAC(origin).stream().map(flightMapper::toDto).collect(Collectors.toList());
+//        return flightRepository.findFlightByOrigin(flightSearch.getOrigin()).stream().map(flightMapper::toDto).collect(Collectors.toList());
     }
 
 

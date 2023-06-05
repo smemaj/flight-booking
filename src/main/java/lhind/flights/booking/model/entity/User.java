@@ -1,9 +1,12 @@
 package lhind.flights.booking.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@Validated
 @Entity
 @Table(name = "user")
 public class User {
@@ -20,6 +23,7 @@ public class User {
     private String middleName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Email(message = "Email cannot be empty")
     @Column(name = "email", nullable = false, unique = true)
     private String username;
     @Column(name = "password", nullable = false)

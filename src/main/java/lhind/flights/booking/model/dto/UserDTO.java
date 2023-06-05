@@ -1,6 +1,7 @@
 package lhind.flights.booking.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jakarta.validation.constraints.Email;
 import lhind.flights.booking.model.entity.User;
 import lhind.flights.booking.model.entity.Role;
 import lhind.flights.booking.model.enums.RoleEnum;
@@ -11,6 +12,7 @@ import java.util.List;
 public class UserDTO {
 
     private Long id;
+//    @Email(message = "Email cannot be empty", regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\\\.[a-z]{2,3}")
     private String username;
     private String firstName;
     private String middleName;
