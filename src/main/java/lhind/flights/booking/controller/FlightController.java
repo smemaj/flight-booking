@@ -6,6 +6,7 @@ import lhind.flights.booking.exception.FlightIsBookedException;
 import lhind.flights.booking.exception.FlightNotFoundException;
 import lhind.flights.booking.exception.UserNotFoundException;
 import lhind.flights.booking.model.dto.*;
+import lhind.flights.booking.model.dto.ResponseBody;
 import lhind.flights.booking.service.FlightService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,14 +44,14 @@ public class FlightController {
 
     @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    public ResponseEntity<String> deleteFlightById(@PathVariable(value = "id") Long id) throws FlightNotFoundException, FlightIsBookedException {
+    public ResponseEntity<ResponseBody> deleteFlightById(@PathVariable(value = "id") Long id) throws FlightNotFoundException, FlightIsBookedException {
         flightService.deleteFlightById(id);
-        return ResponseEntity.status(202).body("Flight deleted!");
+        return ResponseEntity.ok(new ResponseBody("Flight deleted!"));
     }
 
     @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
     @RequestMapping(method = RequestMethod.GET, path = "/search")
-    public ResponseEntity<List<FlightDTO>> getFlights(@RequestBody FlightSearch flightSearch) {
+    public ResponseEntity<List<FlightDTO>> searchFlights(@RequestBody FlightSearch flightSearch) {
         return ResponseEntity.ok(flightService.loadAllFlightsBySearch(flightSearch));
     }
 

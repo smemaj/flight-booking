@@ -5,6 +5,7 @@ import lhind.flights.booking.exception.BookingNotFoundException;
 import lhind.flights.booking.exception.ExistingEmailException;
 import lhind.flights.booking.exception.UserNotFoundException;
 import lhind.flights.booking.model.dto.BookingsResponse;
+import lhind.flights.booking.model.dto.ResponseBody;
 import lhind.flights.booking.model.dto.UserDTO;
 import lhind.flights.booking.model.entity.Booking;
 import lhind.flights.booking.repository.BookingRepository;
@@ -33,11 +34,9 @@ public class UserController {
 
     private final UserService userService;
 
-    private final BookingRepository bookingRepository;
 
-    public UserController(UserService userService, BookingRepository bookingRepository) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.bookingRepository = bookingRepository;
     }
 
     @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
@@ -60,9 +59,9 @@ public class UserController {
 
     @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.DELETE, path = "/{email}")
-    public ResponseEntity<String> deleteUserbyEmail(@PathVariable(value = "email") String email) throws UserNotFoundException {
+    public ResponseEntity<ResponseBody> deleteUserbyEmail(@PathVariable(value = "email") String email) throws UserNotFoundException {
         userService.deleteUserByEmail(email);
-        return ResponseEntity.status(202).body("User deleted!");
+        return ResponseEntity.ok(new ResponseBody("User Deleted!"));
     }
 
 //    @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
@@ -91,11 +90,10 @@ public class UserController {
 
     @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
     @RequestMapping(method = RequestMethod.GET, path = "/bookinglogged")
-    public ResponseEntity<Map<String, Object>> findByUId(
+    public ResponseEntity<Map<String, Object>> getBookingsPagination(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) throws UserNotFoundException, BookingNotFoundException {
-//        Sort sortOrder = Sort.by("booking_time");
         return ResponseEntity.ok(userService.loadAllBookingsForLoggedUserPageable(page,size,"booking_time"));
     }
 
