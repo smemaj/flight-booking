@@ -7,24 +7,15 @@ import lhind.flights.booking.exception.UserNotFoundException;
 import lhind.flights.booking.model.dto.BookingsResponse;
 import lhind.flights.booking.model.dto.ResponseBody;
 import lhind.flights.booking.model.dto.UserDTO;
-import lhind.flights.booking.model.entity.Booking;
-import lhind.flights.booking.repository.BookingRepository;
 import lhind.flights.booking.service.UserService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Validated
 @RestController
