@@ -47,7 +47,7 @@ public class FlightController {
         return ResponseEntity.ok(new ResponseBody("Flight deleted!"));
     }
 
-    @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
+    @PreAuthorize(value = "hasAnyRole('TRAVELLER') or hasAnyRole('ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.GET, path = "/search")
     public ResponseEntity<List<FlightDTO>> searchFlights(@RequestBody FlightSearch flightSearch) {
         return ResponseEntity.ok(flightService.loadAllFlightsBySearch(flightSearch));
