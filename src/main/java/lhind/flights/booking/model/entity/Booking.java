@@ -32,6 +32,9 @@ public class Booking {
     @Enumerated(value = EnumType.STRING)
     private BookingStatusEnum bookingStatus;
 
+    @Column(name = "decline_reason")
+    private String declineReason;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +72,13 @@ public class Booking {
 
     public void setBookingStatus(BookingStatusEnum bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public String getDeclineReason() {
+        return declineReason;
+    }
+
+    public void setDeclineReason(String declineReason) {
+        this.declineReason = declineReason;
     }
 }
