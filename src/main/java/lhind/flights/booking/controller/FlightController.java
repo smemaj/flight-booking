@@ -2,9 +2,7 @@ package lhind.flights.booking.controller;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lhind.flights.booking.exception.FlightIsBookedException;
-import lhind.flights.booking.exception.FlightNotFoundException;
-import lhind.flights.booking.exception.UserNotFoundException;
+import lhind.flights.booking.exception.*;
 import lhind.flights.booking.model.dto.*;
 import lhind.flights.booking.model.dto.ResponseBody;
 import lhind.flights.booking.service.FlightService;
@@ -26,7 +24,7 @@ public class FlightController {
 
     @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<FlightDTO> newFlight(@RequestBody FlightDTO flightDTO) {
+    public ResponseEntity<FlightDTO> newFlight(@RequestBody FlightDTO flightDTO) throws SameOriginAndDestinationException, IncorrectLengthException, IncorrectFlightNumberException, FlightDateException, DepartureTimeException {
         return ResponseEntity.status(201).body(flightService.newFlight(flightDTO));
     }
 
