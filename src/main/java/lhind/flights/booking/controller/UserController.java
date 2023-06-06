@@ -63,8 +63,8 @@ public class UserController {
 //    }
 
     @PreAuthorize(value = "hasAnyRole('ADMINISTRATOR')")
-    @RequestMapping(method = RequestMethod.POST, path = "/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "id") Long id, @RequestBody UserDTO userDTO) throws UserNotFoundException {
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "id") Long id, @RequestBody UserDTO userDTO) throws UserNotFoundException, ExistingEmailException {
         return ResponseEntity.status(202).body(userService.updateUser(id, userDTO));
     }
 
