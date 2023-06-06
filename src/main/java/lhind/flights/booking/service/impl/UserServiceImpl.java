@@ -127,12 +127,6 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-// getUsername() - Returns the username used to authenticate the user.
-        System.out.println("User name: " + userDetails.getUsername());
-
-// getAuthorities() - Returns the authorities granted to the user.
-        System.out.println("User has authorities: " + userDetails.getAuthorities());
-
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(UserNotFoundException::new);
         return bookingRepository.findByUserId(user.getId()).stream().map(BookingsResponse::new).collect(Collectors.toList());
     }
@@ -140,8 +134,6 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> loadAllBookingsForLoggedUserPageable(int page, int size, String sortBy) throws BookingNotFoundException, UserNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println("User name: " + userDetails.getUsername());
-        System.out.println("User has authorities: " + userDetails.getAuthorities());
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(UserNotFoundException::new);
 
         List<BookingsResponse> bookings = new ArrayList<BookingsResponse>();
