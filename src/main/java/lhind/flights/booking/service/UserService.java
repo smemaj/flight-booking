@@ -21,7 +21,7 @@ public interface UserService {
 
     void deleteUserById(Long id) throws UserNotFoundException;
 
-    UserDTO updateUser(Long id, UserDTO userDTO) throws UserNotFoundException;
+    UserDTO updateUser(Long id, UserDTO userDTO) throws UserNotFoundException, ExistingEmailException;
 
     UserDTO searchUserByEmail(String email) throws UserNotFoundException;
 

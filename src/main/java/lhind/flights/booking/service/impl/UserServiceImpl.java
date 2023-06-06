@@ -104,8 +104,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(Long id, UserDTO userDTO) throws UserNotFoundException {
+    public UserDTO updateUser(Long id, UserDTO userDTO) throws UserNotFoundException, ExistingEmailException {
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        if(userRepository.findByUsername(userDTO.getUsername()).isPresent()){
+            throw new ExistingEmailException();
+        }
         user.setFirstName(userDTO.getFirstName());
         user.setMiddleName(userDTO.getMiddleName());
         user.setLastName(userDTO.getLastName());
