@@ -40,6 +40,45 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(403).body(baseResponse);
     }
 
+    @ExceptionHandler(value = NoSuchBookingForUserException.class)
+    public ResponseEntity<BaseResponse> handleNoSuchBookingException(NoSuchBookingForUserException e) {
+        LOGGER.info("There is no such booking for the logged in user");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("There is no such booking for the logged in user"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = BookingNotInRightStatus.class)
+    public ResponseEntity<BaseResponse> handleCancellationRequestException(BookingNotInRightStatus e) {
+        LOGGER.info("Cannot request for cancellation. Booking should have status BOOKED");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Cannot request for cancellation. Booking should have status BOOKED"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = CannotApproveRequestExcpetion.class)
+    public ResponseEntity<BaseResponse> handleCancellationApprovalException(CannotApproveRequestExcpetion e) {
+        LOGGER.info("Cannot approve cancellation request. Booking should be in REQUESTED_FOR_CANCELLATION status");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Cannot approve cancellation request. Booking should be in REQUESTED_FOR_CANCELLATION status"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = CannotDeclineRequestExcpetion.class)
+    public ResponseEntity<BaseResponse> handleCancellationDeclineException(CannotDeclineRequestExcpetion e) {
+        LOGGER.info("Cannot decline cancellation request. Booking should be in REQUESTED_FOR_CANCELLATION status");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Cannot decline cancellation request. Booking should be in REQUESTED_FOR_CANCELLATION status"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = DeclineReasonIsNullException.class)
+    public ResponseEntity<BaseResponse> handleMissingReasonException(DeclineReasonIsNullException e) {
+        LOGGER.info("Cannot decline cancellation as reason for declining is not provided");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Cannot decline cancellation as reason for declining is not provided"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
 
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<BaseResponse> handleUserNotFoundException(UserNotFoundException e) {
