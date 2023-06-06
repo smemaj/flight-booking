@@ -72,6 +72,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(403).body(baseResponse);
     }
 
+    @ExceptionHandler(value = IncorrectFlightNumberException.class)
+    public ResponseEntity<BaseResponse> handleIncorrectFlightNumberException(IncorrectFlightNumberException e) {
+        LOGGER.info("Incorrect Flight Number");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Incorrect Flight Number"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
     @ExceptionHandler(value = DeclineReasonIsNullException.class)
     public ResponseEntity<BaseResponse> handleMissingReasonException(DeclineReasonIsNullException e) {
         LOGGER.info("Cannot decline cancellation as reason for declining is not provided");
@@ -80,11 +88,43 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(403).body(baseResponse);
     }
 
+    @ExceptionHandler(value = SameOriginAndDestinationException.class)
+    public ResponseEntity<BaseResponse> handleOriginAndDestinationException(SameOriginAndDestinationException e) {
+        LOGGER.info("Flight cannot have same origin and destination");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Flight cannot have same origin and destination"));
+        return ResponseEntity.status(403).body(baseResponse);
+    }
+
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<BaseResponse> handleUserNotFoundException(UserNotFoundException e) {
         LOGGER.warn("User was not found");
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setMessages(List.of("User was not found"));
+        return ResponseEntity.status(404).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = IncorrectLengthException.class)
+    public ResponseEntity<BaseResponse> handleIncorrectLengthException(IncorrectLengthException e) {
+        LOGGER.warn("Length must be 3");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Length must be 3"));
+        return ResponseEntity.status(404).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = FlightDateException.class)
+    public ResponseEntity<BaseResponse> handleFLightDateException(FlightDateException e) {
+        LOGGER.warn("Flight date cannot be before today's date");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Flight date cannot be before today's date"));
+        return ResponseEntity.status(404).body(baseResponse);
+    }
+
+    @ExceptionHandler(value = DepartureTimeException.class)
+    public ResponseEntity<BaseResponse> handleDepartureTimeException(DepartureTimeException e) {
+        LOGGER.warn("Departure time cannot be earlier than current time");
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessages(List.of("Departure time cannot be earlier than current time"));
         return ResponseEntity.status(404).body(baseResponse);
     }
 
