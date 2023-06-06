@@ -89,7 +89,7 @@ public class UserController {
     }
 
     @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
-    @RequestMapping(method = RequestMethod.GET, path = "/bookinglogged")
+    @RequestMapping(method = RequestMethod.GET, path = "/booking-logged")
     public ResponseEntity<Map<String, Object>> getBookingsPagination(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
